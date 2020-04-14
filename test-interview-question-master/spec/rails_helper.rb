@@ -58,18 +58,38 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   
-  Capybara.default_driver = :remote_firefox
-  Capybara.default_max_wait_time = 5
-  Capybara.register_driver :remote_firefox do |app|
-    firefox_capabilities = Selenium::WebDriver::Remote::Capabilities.firefox()
-    profile = Selenium::WebDriver::Firefox::Profile.new
-    profile["intl.accept_languages"] =  "en-US"
-    options = Selenium::WebDriver::Firefox::Options.new
-    options.profile = profile
-    Capybara::Selenium::Driver.new(app, browser: :remote,
-      url: "http://#{ENV['SELENIUM_REMOTE_HOST']}:3000/wd/hub", desired_capabilities: firefox_capabilities)
+  Capybara.javascript_driver = :selenium_remote_firefox
+  Capybara.register_driver "selenium_remote_firefox".to_sym do |app|
+    Capybara::Selenium::Driver.new(app, browser: :remote, url: "http://localhost:4444/wd/hub", desired_capabilities: :firefox)
   end
-  Capybara.app_host = "http://test_app:3000"
+  
+  if ENV['SELENIUM_REMOTE_HOST']
+    Capybara.javascript_driver = :selenium_remote_firefox
+    Capybara.register_driver "selenium_remote_firefox".to_sym do |app|
+      Capybara::Selenium::Driver.new(
+        app,
+        browser: :remote,
+        url: "http://#{ENV['SELENIUM_REMOTE_HOST']}:4444/wd/hub",
+        desired_capabilities: :firefox)
+    end
+  end
+  
+  
+  config.before(:each) do
+     if /selenium_remote/.match Capybara.current_driver.to_s
+       ip = `/sbin/ip route|awk '/scope/ { print $9 }'`
+       ip = ip.gsub "\n", ""
+       Capybara.server_port = "3000"
+       Capybara.server_host = ip
+       Capybara.app_host = "http://#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}"
+     end
+   end
+  
+   config.after(:each) do
+     Capybara.reset_sessions!
+     Capybara.use_default_driver
+     Capybara.app_host = nil
+   end
   
 end
 

@@ -9,8 +9,21 @@ services:
       update_config:
         parallelism: 4
       
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0' && rspec "
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0' "
        
     ports:
       - "3000:3000"
-  
+      
+      
+  test:
+    build: .
+    command: bundle exec rspec
+    container_name: railsapplication
+    environment:
+      - SELENIUM_REMOTE_HOST=selenium
+    depends_on:
+      - selenium
+    
+  selenium:
+    image: selenium/standalone-firefox
+    container_name: selenium
