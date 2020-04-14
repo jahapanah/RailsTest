@@ -67,9 +67,9 @@ RSpec.configure do |config|
     options = Selenium::WebDriver::Firefox::Options.new
     options.profile = profile
     Capybara::Selenium::Driver.new(app, browser: :remote,
-      url: "http://#{ENV['SELENIUM_REMOTE_HOST']}:4444/wd/hub", desired_capabilities: firefox_capabilities)
+      url: "http://#{ENV['SELENIUM_REMOTE_HOST']}:3000/wd/hub", desired_capabilities: firefox_capabilities)
   end
-  Capybara.app_host = "http://test_app:3001"
+  Capybara.app_host = "http://test_app:3000"
   
 end
 
