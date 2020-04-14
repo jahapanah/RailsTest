@@ -17,5 +17,9 @@ services:
   selenium:
     image: selenium/standalone-firefox
     container_name: selenium  
+    deploy:
+      replicas: 4
+      update_config:
+        parallelism: 4
     command: docker-compose run app rspec
   
