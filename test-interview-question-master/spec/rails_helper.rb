@@ -58,6 +58,18 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   
+  Capybara.default_driver = :remote_firefox
+  Capybara.default_max_wait_time = 5
+  Capybara.register_driver :remote_firefox do |app|
+    firefox_capabilities = Selenium::WebDriver::Remote::Capabilities.firefox()
+    profile = Selenium::WebDriver::Firefox::Profile.new
+    profile["intl.accept_languages"] =  "en-US"
+    options = Selenium::WebDriver::Firefox::Options.new
+    options.profile = profile
+    Capybara::Selenium::Driver.new(app, browser: :remote,
+      url: "http://#{ENV['SELENIUM_REMOTE_HOST']}:4444/wd/hub", desired_capabilities: firefox_capabilities)
+  end
+  Capybara.app_host = "http://test_app:3001"
   
 end
 
