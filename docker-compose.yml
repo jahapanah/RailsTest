@@ -1,8 +1,17 @@
 version: '3'
 
 services:
+
+  db:
+    image: postgres
+    deploy:
+      mode: replicated
+      replicas: 2
+      
   app:
     image: jigarsingh/m_test:tagname
+    networks:
+      - overlay
     deploy:
       replicas: 4
       update_config:
@@ -13,10 +22,6 @@ services:
     ports:
       - "3000:3000"
     
-  selenium:
-    image: selenium/standalone-firefox
-    container_name: selenium  
-    command: docker-compose run app rspec
-    ports:
-      - "4444:4444"
   
+ networks:
+    overlay
