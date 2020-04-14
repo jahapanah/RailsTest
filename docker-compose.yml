@@ -2,7 +2,7 @@ version: '3'
 
 services:
   app:
-    image: jigarsingh/merakitest:tagname
+    image: jigarsingh/merakitest:tagname/Dockerfile
     build: ./Dockerfile
   
     deploy:
