@@ -4,9 +4,6 @@ services:
 
   db:
     image: postgres
-    deploy:
-      mode: replicated
-      replicas: 2
       
   app:
     image: jigarsingh/m_test:tagname
