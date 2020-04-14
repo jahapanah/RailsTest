@@ -7,11 +7,11 @@ services:
     deploy:
       mode: replicated
       replicas: 2
+      ports:
+      - "8001:5432"
       
   app:
     image: jigarsingh/m_test:tagname
-    networks:
-      - overlay
     deploy:
       replicas: 4
       update_config:
