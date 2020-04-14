@@ -9,7 +9,7 @@ services:
       update_config:
         parallelism: 4
       
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0' && app rspec "
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0' && rspec "
        
     ports:
       - "3000:3000"
