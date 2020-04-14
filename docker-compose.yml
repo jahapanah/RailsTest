@@ -20,7 +20,6 @@ services:
       
   test:
     build: ./Dockerfile
-    container_name: railsapplication
     environment:
       - SELENIUM_REMOTE_HOST=selenium
     depends_on:
