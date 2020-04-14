@@ -1,5 +1,5 @@
 FROM ruby:2.5
-RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq && apt-get install -y nodejs postgresql-client && apt-get install -y libpq-dev && apt-get install -y libxml2-dev libxslt1-dev && apt-get install -y build-essential && apt-get install -y ruby-rspec && apt-get install xorg openbox
+RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq && apt-get install -y nodejs postgresql-client && apt-get install -y libpq-dev && apt-get install -y libxml2-dev libxslt1-dev && apt-get install -y build-essential && apt-get install -y ruby-rspec
 RUN gem install bundler
 RUN mkdir -p /myapp
 WORKDIR /myapp
