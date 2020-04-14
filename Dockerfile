@@ -7,5 +7,4 @@ COPY ./test-interview-question-master/Gemfile /myapp/Gemfile
 COPY ./test-interview-question-master/Gemfile.lock /myapp/Gemfile.lock
 RUN bundle install
 COPY ./test-interview-question-master /myapp
-EXPOSE 3000
-RUN rails server
+Run rspec spec/system/hello_world_spec.rb
