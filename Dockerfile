@@ -9,3 +9,4 @@ RUN bundle install
 COPY ./test-interview-question-master /myapp
 RUN rails test
 RUN rspec spec/system/hello_world_spec.rb
+CMD ["rails", "server", "-b", "0.0.0.0"]
