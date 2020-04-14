@@ -20,7 +20,6 @@ services:
       
   test:
     build: ./Dockerfile
-    command: bundle exec rspec
     container_name: railsapplication
     environment:
       - SELENIUM_REMOTE_HOST=selenium
