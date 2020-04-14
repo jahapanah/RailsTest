@@ -19,7 +19,7 @@ services:
     container_name: selenium  
       
   test:
-    build: .
+    build: ./Dockerfile
     command: bundle exec rspec
     container_name: railsapplication
     environment:
