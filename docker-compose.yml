@@ -4,8 +4,8 @@ services:
   app:
     build:
       image: ./
-      context: ./
-      dockerfile: Dockerfile
+      context: ./Dockerfile
+      
     deploy:
       replicas: 4
       update_config:
