@@ -7,7 +7,3 @@ COPY ./test-interview-question-master/Gemfile /myapp/Gemfile
 COPY ./test-interview-question-master/Gemfile.lock /myapp/Gemfile.lock
 RUN bundle install
 COPY ./test-interview-question-master /myapp
-RUN rails test
-RUN rspec spec/system/hello_world_spec.rb
-CMD ["rspec", "spec/system/hello_world_spec.rb"]
-CMD ["rails", "server", "-b", "0.0.0.0"]
